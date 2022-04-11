@@ -12,15 +12,17 @@ export default {
   actions: {
     async login({commit, dispatch}, data) {
       const response = await httpService.post(LOGIN_URL, data)
-
       if (response.success) {
-        authService.setToken(response.body.access_token)
+        authService.setToken(response.body.data.access_token)
       }
-
       return response
     },
     async register({commit}, data) {
-      return await httpService.post(REGISTER_URL, data)
+      const response = await httpService.post(REGISTER_URL, data)
+      if (response.success) {
+        authService.setToken(response.body.data.access_token)
+      }
+      return response
     },
     async resetPasswordRequest({commit}, data) {
       return await httpService.post(SEND_RESET_PASSWORD_URL, data)

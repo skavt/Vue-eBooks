@@ -7,7 +7,7 @@ import ResetPasswordForm from "../modules/Auth/ResetPassword/ResetPasswordForm";
 import Register from "../modules/Auth/Register";
 import authService from "../core/services/authService";
 import DefaultLayout from "../core/components/layout/DefaultLayout";
-import store from "../store";
+import {store} from "../store";
 
 Vue.use(VueRouter)
 

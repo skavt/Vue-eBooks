@@ -40,7 +40,8 @@
         const {success, body} = await this.register({...this.model.toJSON()});
         this.loading = false;
         if (success) {
-          await this.$router.push({name: 'login'});
+          this.$toast(body.message, 'success');
+          await this.$router.push({name: 'dashboard'});
         } else if (body.message) {
           this.$toast(body.message, 'danger');
         } else {

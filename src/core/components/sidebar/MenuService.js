@@ -1,5 +1,5 @@
 import MenuItem from './MenuItem';
-import store from '../../../store';
+import {store} from '../../../store';
 
 class MenuService {
 
