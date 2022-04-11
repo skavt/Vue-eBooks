@@ -10,7 +10,7 @@ const store = new Vuex.Store({
 		menuHidden: false,
 		_menuItems: {},
 		hideSideBar: true,
-		hideNavBar: true,
+		hideNavBar: false,
 		hideAuth: false,
 		perPage: 50,
 		currentUser: null,
