@@ -13,44 +13,44 @@
 </template>
 
 <script>
-import LoginModel from "./models/LoginModel";
-import {createNamespacedHelpers} from "vuex";
-import RightSide from "./components/RightSide";
-import ViewSpinner from "../../core/components/view-spinner/view-spinner";
-import AuthForm from "./components/AuthForm";
+  import LoginModel from "./models/LoginModel";
+  import {createNamespacedHelpers} from "vuex";
+  import RightSide from "./components/RightSide";
+  import ViewSpinner from "../../core/components/view-spinner/view-spinner";
+  import AuthForm from "./components/AuthForm";
 
-const {mapActions} = createNamespacedHelpers('auth')
+  const {mapActions} = createNamespacedHelpers('auth')
 
-export default {
-  name: "Login",
-  components: {AuthForm, ViewSpinner, RightSide},
-  data() {
-    return {
-      model: new LoginModel(),
-      loading: false,
-    }
-  },
-  methods: {
-    ...mapActions(['login']),
-    async onLoginClick() {
-      this.loading = true;
-      this.model.resetErrors();
-      const {success, body} = await this.login({...this.model.toJSON()});
-      this.loading = false;
-      if (success) {
-        await this.$router.push({name: 'dashboard'});
-      } else if (body.message) {
-        this.$toast(body.message, 'danger');
-      } else {
-        this.model.setMultipleErrors(body);
+  export default {
+    name: "Login",
+    components: {AuthForm, ViewSpinner, RightSide},
+    data() {
+      return {
+        model: new LoginModel(),
+        loading: false,
       }
     },
-  },
-}
+    methods: {
+      ...mapActions(['login']),
+      async onLoginClick() {
+        this.loading = true;
+        this.model.resetErrors();
+        const {success, body} = await this.login({...this.model.toJSON()});
+        this.loading = false;
+        if (success) {
+          await this.$router.push({name: 'dashboard'});
+        } else if (body.message) {
+          this.$toast(body.message, 'danger');
+        } else {
+          this.model.setMultipleErrors(body);
+        }
+      },
+    },
+  }
 </script>
 
 <style scoped lang="scss">
-.col-right {
-  position: relative;
-}
+  .col-right {
+    position: relative;
+  }
 </style>
