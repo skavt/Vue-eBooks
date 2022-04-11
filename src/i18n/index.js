@@ -13,7 +13,7 @@ keys.forEach((key) => {
 });
 
 const i18n = new VueI18n({
-	locale: 'en',
+	locale: process.env.CURRENT_LANGUAGE,
 	messages: messages
 });
 

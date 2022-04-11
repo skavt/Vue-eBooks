@@ -1,3 +1,22 @@
 {
-  "Login to your account": "Login to your account"
+  "Login to your account": "Login to your account",
+  "E-Books": "E-Books",
+  "Should contain at least 1 lower case, 1 upper case, 1 digit and min length of 8": "Should contain at least 1 lower case, 1 upper case, 1 digit and min length of 8",
+  "This field is required": "This field is required",
+  "The email field must be a valid email": "The email field must be a valid email",
+  "Value does not match the pattern": "Value does not match the pattern",
+  "Passwords do not match": "Passwords do not match",
+  "Email": "Email",
+  "Password": "Password",
+  "Login": "Login",
+  "Sign Up": "Sign Up",
+  "Forgot your password?": "Forgot your password?",
+  "This must be valid email": "This must be valid email",
+  "First Name": "First Name",
+  "Last Name": "Last Name",
+  "Repeat Password": "Repeat Password",
+  "Create new account": "Create new account",
+  "Register": "Register",
+  "Back to login": "Back to login",
+  "Submit":"Submit"
 }
