@@ -4,7 +4,10 @@
         class="per-page-select mr-2" v-model="perPage" :options="perPageOptions" @change="onPaginationChange">
     </b-form-select>
     <div v-if="totalRows > 0">
-      Displaying <b>{{ from }}</b> - <b>{{ Math.min(to, totalRows) }}</b> out of <b>{{ totalRows }}</b>
+      {{ $t('Displaying') }}
+      <b>{{ from }}</b> - <b>{{ Math.min(to, totalRows) }}</b>
+      {{ $t('out of') }}
+      <b>{{ totalRows }}</b>
     </div>
     <b-pagination
         class="mb-0" v-model="currentPage" :total-rows="totalRows" :per-page="perPage" @input="onPaginationChange">
@@ -13,7 +16,7 @@
 </template>
 
 <script>
-  import {mapState, mapActions} from 'vuex'
+  import {mapActions, mapState} from 'vuex'
 
   export default {
     name: "TablePagination",

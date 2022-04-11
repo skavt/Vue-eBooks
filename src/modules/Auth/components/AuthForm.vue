@@ -3,83 +3,96 @@
     <b-form @keydown.enter.prevent="handleSubmit(onSubmit)">
       <input-widget :model="model" attribute="email" :autofocus="true" :disabled="disabledEmail" :label="false"/>
       <input-widget
-          v-if="isRegister()" :model="model" :placeholder="`First Name`" attribute="first_name" :autofocus="true"
+          v-if="isRegister" :model="model" :placeholder="$t('First Name')" attribute="first_name" :autofocus="true"
           :label="false">
       </input-widget>
-      <input-widget v-if="isRegister()" :model="model" :placeholder="`Last Name`" attribute="last_name" :label="false"/>
+      <input-widget
+          v-if="isRegister" :model="model" :placeholder="$t('Last Name')" attribute="last_name" :label="false">
+      </input-widget>
       <input-widget v-if="showPassword" :model="model" attribute="password" type="password" :label="false"/>
-      <input-widget v-if="showRepeatPassword" :model="model" :placeholder="`Repeat Password`"
-                    attribute="repeat_password" type="password" :label="false">
+      <input-widget
+          v-if="showRepeatPassword" :model="model" :placeholder="$t('Repeat Password')" attribute="repeat_password"
+          type="password" :label="false">
       </input-widget>
       <div class="d-flex align-items-center justify-content-between">
-        <b-button class="mr-2" variant="outline-light" @click="handleSubmit(onSubmit)">{{ getButtonName() }}</b-button>
+        <b-button class="mr-2 float-left" variant="outline-light" @click="handleSubmit(onSubmit)">
+          {{ getButtonName }}
+        </b-button>
         <div>
-          <router-link :to="{name: getLinkPath()}" class="auth-link">{{ getLinkName() }}</router-link><br/>
-          <router-link :to="{name: 'register'}" class="auth-link float-right">Sign Up</router-link>
+          <router-link v-if="isLogin" :to="{name: 'register'}" class="auth-link float-right">
+            {{ $t('Sign Up') }}
+          </router-link>
+          <router-link v-else :to="{name: getLinkPath}" class="auth-link">
+            <i class="fas fa-angle-double-left"/>
+            {{ $t('Back to login') }}
+          </router-link>
         </div>
       </div>
+      <router-link v-if="isLogin" :to="{name: getLinkPath}" class="auth-link text-info float-left mt-2">
+        {{ $t('Forgot your password?') }}
+      </router-link>
     </b-form>
   </ValidationObserver>
 </template>
 
 <script>
-import InputWidget from "../../../core/components/input-widget/InputWidget";
+  import InputWidget from "../../../core/components/input-widget/InputWidget";
+  import i18n from "../../../i18n";
 
-export default {
-  name: "AuthForm",
-  components: {InputWidget},
-  props: {
-    model: Object,
-    loading: Boolean,
-    formType: String,
-    showPassword: {
-      type: Boolean,
-      default: true,
+  export default {
+    name: "AuthForm",
+    components: {InputWidget},
+    props: {
+      model: Object,
+      loading: Boolean,
+      formType: String,
+      showPassword: {
+        type: Boolean,
+        default: true,
+      },
+      showRepeatPassword: {
+        type: Boolean,
+        default: false,
+      },
+      disabledEmail: {
+        type: Boolean,
+        default: false,
+      },
     },
-    showRepeatPassword: {
-      type: Boolean,
-      default: false,
+    computed: {
+      getButtonName() {
+        return this.isLogin ? i18n.t('Login') : this.isRegister ? i18n.t('Register') : i18n.t('Submit');
+      },
+      getLinkPath() {
+        return this.isLogin ? 'reset-password-request' : 'login';
+      },
+      isLogin() {
+        return this.formType === 'login';
+      },
+      isRequestPass() {
+        return this.formType === 'requestPass';
+      },
+      isResetPass() {
+        return this.formType === 'resetPass';
+      },
+      isRegister() {
+        return this.formType === 'register';
+      },
     },
-    disabledEmail: {
-      type: Boolean,
-      default: false,
+    methods: {
+      onSubmit() {
+        if (this.isLogin) {
+          this.$emit('on-login-click');
+        } else if (this.isRequestPass) {
+          this.$emit('on-request-pass-click');
+        } else if (this.isResetPass) {
+          this.$emit('on-reset-pass-click');
+        } else if (this.isRegister) {
+          this.$emit('on-register-click');
+        }
+      },
     },
-  },
-  methods: {
-    getButtonName() {
-      return this.isLogin() ? 'Login' : this.isRegister() ? 'Register' : 'Submit'
-    },
-    getLinkPath() {
-      return this.isLogin() ? 'reset-password-request' : 'login'
-    },
-    getLinkName() {
-      return this.isLogin() ? 'Request New Password' : 'Back to Login'
-    },
-    onSubmit() {
-      if (this.isLogin()) {
-        this.$emit('on-login-click')
-      } else if (this.isRequestPass()) {
-        this.$emit('on-request-pass-click')
-      } else if (this.isResetPass()) {
-        this.$emit('on-reset-pass-click')
-      } else if (this.isRegister()) {
-        this.$emit('on-register-click')
-      }
-    },
-    isLogin() {
-      return this.formType === 'login'
-    },
-    isRequestPass() {
-      return this.formType === 'requestPass'
-    },
-    isResetPass() {
-      return this.formType === 'resetPass'
-    },
-    isRegister() {
-      return this.formType === 'register'
-    },
-  },
-}
+  }
 </script>
 
 <style scoped>

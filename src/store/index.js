@@ -4,7 +4,7 @@ import auth from './modules/auth'
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
 	state: {
 		menuCollapsed: false,
 		menuHidden: false,
@@ -55,3 +55,8 @@ export default new Vuex.Store({
 		auth,
 	}
 });
+
+export {
+	store,
+	Vuex,
+}

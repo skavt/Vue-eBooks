@@ -5,26 +5,28 @@
 </template>
 
 <script>
-export default {
-  name: "NoContent",
-  props: {
-    show: {
-      type: Boolean,
-      default: false,
+  import i18n from "../../../i18n";
+
+  export default {
+    name: "NoContent",
+    props: {
+      show: {
+        type: Boolean,
+        default: false,
+      },
+      text: {
+        type: String,
+        default: i18n.t('No Data Available')
+      },
     },
-    text: {
-      type: String,
-      default: 'No Data Available'
-    },
-  },
-}
+  }
 </script>
 
 <style scoped>
 
-.no-data-exists {
-  height: 100px;
-  font-size: 18px;
-}
+  .no-data-exists {
+    height: 100px;
+    font-size: 18px;
+  }
 
 </style>

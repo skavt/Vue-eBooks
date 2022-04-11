@@ -68,6 +68,7 @@ export default {
 
   & /deep/ .auth-link {
     color: white;
+    text-decoration: none;
   }
 }
 

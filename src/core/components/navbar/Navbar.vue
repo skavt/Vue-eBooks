@@ -15,7 +15,7 @@
         <hr/>
         <b-dropdown-item v-if="!hideAuth" @click="onLogoutClick" href="#">
           <div class="d-flex justify-content-between align-items-center">
-            Logout
+            {{ $t('Logout') }}
             <i class="fas fa-sign-out-alt"/>
           </div>
         </b-dropdown-item>
@@ -28,10 +28,10 @@
             <i class="fas fa-caret-down ml-2"/>
           </span>
         </template>
-        <b-dropdown-item :active="this.$route.name === 'profile'" :to="toUserUrl">Profile</b-dropdown-item>
+        <b-dropdown-item :active="this.$route.name === 'profile'" :to="toUserUrl">{{ $t('Profile') }}</b-dropdown-item>
         <b-dropdown-item v-if="!hideAuth" @click="onLogoutClick" href="#">
           <span class="d-flex justify-content-between align-items-center">
-            Logout
+            {{ $t('Logout') }}
             <i class="fas fa-sign-out-alt"/>
           </span>
         </b-dropdown-item>

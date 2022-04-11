@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-6">
       <div class="auth-left">
-        <h4>Login to your account</h4>
+        <h4>{{ $t('Login to your account') }}</h4>
         <br>
         <view-spinner :show="loading"/>
         <auth-form :model="model" :loading="loading" :form-type="`login`" @on-login-click="onLoginClick"/>
@@ -33,14 +33,16 @@ export default {
   methods: {
     ...mapActions(['login']),
     async onLoginClick() {
-      this.loading = true
-      this.model.resetErrors()
-      const {success, body} = await this.login({...this.model.toJSON()})
-      this.loading = false
+      this.loading = true;
+      this.model.resetErrors();
+      const {success, body} = await this.login({...this.model.toJSON()});
+      this.loading = false;
       if (success) {
         await this.$router.push({name: 'dashboard'});
+      } else if (body.message) {
+        this.$toast(body.message, 'danger');
       } else {
-        this.model.setMultipleErrors([{field: 'password', message: body.message}])
+        this.model.setMultipleErrors(body);
       }
     },
   },
