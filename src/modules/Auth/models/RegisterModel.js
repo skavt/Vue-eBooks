@@ -14,7 +14,7 @@ export default class RegisterModel extends BaseModel {
 		last_name: 'required',
 		email: [
 			{rule: 'required'},
-			{rule: 'email', message: i18n.t('This must be valid email')},
+			{rule: 'email', message: i18n.t('This must be a valid email')},
 		],
 		password: [
 			{rule: 'required'},

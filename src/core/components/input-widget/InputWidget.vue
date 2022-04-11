@@ -33,9 +33,7 @@
           :key="`${attribute}-${uuid}`" :state="getState(v)" :placeholder="computedPlaceholder"
           :autofocus="autofocus">
       </b-form-textarea>
-      <b-form-invalid-feedback :state="getState(v)">
-        {{ getError(v.errors) }}
-      </b-form-invalid-feedback>
+      <b-form-invalid-feedback :state="getState(v)" v-html="getError(v.errors)"/>
       <b-form-text v-if="computedHint">
         {{ computedHint }}
       </b-form-text>
