@@ -28,7 +28,9 @@
             <i class="fas fa-caret-down ml-2"/>
           </span>
         </template>
+        <!--
         <b-dropdown-item :active="this.$route.name === 'profile'" :to="toUserUrl">{{ $t('Profile') }}</b-dropdown-item>
+        -->
         <b-dropdown-item v-if="!hideAuth" @click="onLogoutClick" href="#">
           <span class="d-flex justify-content-between align-items-center">
             {{ $t('Logout') }}
@@ -47,20 +49,6 @@
 
   export default {
     name: "Navbar",
-    props: {
-      username: {
-        type: String,
-        default: ''
-      },
-      avatarUrl: {
-        type: String,
-        default: '/assets/avatar.svg'
-      },
-      toUserUrl: {
-        type: String,
-        default: 'dashboard'
-      }
-    },
     data() {
       return {
         windowWidth: window.innerWidth,
@@ -71,6 +59,12 @@
       ...mapState(['hideAuth', 'currentUser']),
       isSmallScreen() {
         return this.windowWidth <= 480
+      },
+      username() {
+        return this.currentUser ? `${this.currentUser.last_name}, ${this.currentUser.first_name}` : '';
+      },
+      avatarUrl() {
+        return this.currentUser.image_path || '/assets/avatar.svg';
       },
     },
     methods: {

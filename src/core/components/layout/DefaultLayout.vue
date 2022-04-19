@@ -11,7 +11,7 @@
 <script>
   import Navbar from "../navbar/Navbar";
   import Sidebar from "../sidebar/Sidebar";
-  import {mapState} from 'vuex';
+  import {mapState, mapActions} from 'vuex';
 
   export default {
     name: "DefaultLayout",
@@ -19,6 +19,14 @@
     computed: {
       ...mapState(['hideNavBar', 'hideSideBar']),
     },
+    methods: {
+      ...mapActions(['getCurrentUser']),
+    },
+    async mounted() {
+      if (!this.hideNavBar) {
+        await this.getCurrentUser();
+      }
+    }
   }
 </script>
 

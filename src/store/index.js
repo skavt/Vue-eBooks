@@ -1,6 +1,8 @@
 import Vuex from "vuex";
 import Vue from 'vue';
 import auth from './modules/auth'
+import authService from "../core/services/authService";
+import httpService from "../core/services/httpService";
 
 Vue.use(Vuex);
 
@@ -33,6 +35,15 @@ const store = new Vuex.Store({
 		},
 		changePerPage({commit}, payload) {
 			commit('changePerPage', payload)
+		},
+		async getCurrentUser({commit}) {
+			const token = authService.getToken();
+			const {success, body} = await httpService.get(`/get-current-user?${token}`);
+			if (success) {
+				commit('updateCurrentUser', body.data);
+			} else {
+				authService.logout();
+			}
 		}
 	},
 	mutations: {
@@ -50,6 +61,9 @@ const store = new Vuex.Store({
 		changePerPage: (state, payload) => {
 			state.perPage = payload;
 		},
+		updateCurrentUser: (state, payload) => {
+			state.currentUser = {...payload};
+		}
 	},
 	modules: {
 		auth,
