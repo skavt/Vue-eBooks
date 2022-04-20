@@ -18,11 +18,7 @@ export default {
       return response
     },
     async register({commit}, data) {
-      const response = await httpService.post(REGISTER_URL, data)
-      if (response.success) {
-        authService.setToken(response.body.data.access_token)
-      }
-      return response
+      return await httpService.post(REGISTER_URL, data)
     },
     async resetPasswordRequest({commit}, data) {
       return await httpService.post(SEND_RESET_PASSWORD_URL, data)

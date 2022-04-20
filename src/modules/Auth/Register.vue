@@ -41,7 +41,7 @@
         this.loading = false;
         if (success) {
           this.$toast(body.message, 'success');
-          await this.$router.push({name: 'dashboard'});
+          await this.$router.push({name: 'login'});
         } else if (body.message) {
           this.$toast(body.message, 'danger');
         } else {
