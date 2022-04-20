@@ -3,8 +3,7 @@
     <b-form @keydown.enter.prevent="handleSubmit(onSubmit)">
       <input-widget :model="model" attribute="email" :autofocus="true" :disabled="disabledEmail" :label="false"/>
       <input-widget
-          v-if="isRegister" :model="model" :placeholder="$t('First Name')" attribute="first_name" :autofocus="true"
-          :label="false">
+          v-if="isRegister" :model="model" :placeholder="$t('First Name')" attribute="first_name" :label="false">
       </input-widget>
       <input-widget
           v-if="isRegister" :model="model" :placeholder="$t('Last Name')" attribute="last_name" :label="false">
